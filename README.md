@@ -1,93 +1,32 @@
 # home-siem-fun
 
+Welcome to the project. Here will be my notes as I go through this process of building and creating my first SIEM in an on-prem environment, (specifically, at home using DNS logs). I have had a couple of ideas for projects just to peak my interest, namely: 
+- Honeypot I can test detections on (cloud-based w/cloud-based siem)
+- Replicating common attacks against my own virtual machines (think of Kerberoasting/password spray/etc.) to further teach myself on how else I could pick detections based around certain attacks that are common to certain industries/clients 
 
+But let's just have fun with this and see how it progresses. 
 
-## Getting started
+# Starting Out 
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+I'll be starting out by leveraging open source programs available to me, therefore the [Elastic Stack](https://www.elastic.co/elastic-stack/) seems to be my best bet for now while I continue to learn and see what I really want to do and pick up out of this project. Luckily, things can always change over time, and I can build on top of my infrastructure.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+I'm currently following a [guide found from Elastic](https://www.elastic.co/guide/en/elastic-stack/current/installing-elastic-stack.html) to install the Elastic Stack. Reading through it, I see the following are what I'll need for my basic at-home setup: 
+- Elasticsearch (the engine that will actually do the indexing and analysis on the data I want)
+    - I'm choosing to run Elasticsearch on a Docker container to better give myself peak efficiency (and because if I'm going to do a project, let's make things interesting and fun?) 
+- Kibana (UI interface that will actually let me play with the data, presumably make the queries within it?)
+- Logstash (event processing pipeline that will allow me to modify events to my liking so that my logs are nice and clean)
+- Elastic Agent, or Beats 
+    - **Agent** _seems to be_ a more generic onboarding agent that I may be able to onboard to anything, however will need more customization. 
+    - **Beats** _seems to be_ a more specific log onboarding agent that will be used for common devices.
+    - More research to come on these as I go. 
 
-## Add your files
+# Doing Things 
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Moving along, let's install Elasticsearch through Docker, via another [guide](https://www.elastic.co/guide/en/elasticsearch/reference/8.14/docker.html). Following the steps and my notes below: 
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/siem-fun-play/home-siem-fun.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/siem-fun-play/home-siem-fun/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+1. Installed Docker Desktop. 
+- Need to allocate 4GB of memory, however the option in Docker Desktop that Elastic is suggesting doesn't seem to exist, since according to Docker Desktop, seems that "You are using the WSL 2 backend, so resource limits are managed by Windows." I solved this issue by creating a [_.wslconfig_](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig) file via Powershell (New-Item -Name ".wslconfig") within my %UserProfile% directory and setting the contents as follows: [wsl2] memory=4GB 
+2. until 6 is copy pasta 
+6. [Created an env variable for Windows](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.4#use-the-variable-syntax)
+7. aaannnddd I don't feel like dealing with the different Powershell quirks so I just found it easier to install wsl and use the provided curl command to validate my Elasticsearch container through API call. 
+![Screenshot of the successful validation of the API call that reads: "Tagline: You Know, for Search"](images/tagline.png)
